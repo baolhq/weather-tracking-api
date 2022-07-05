@@ -31,8 +31,6 @@ namespace WeatherTrackingApi.Models
         public int TimeEndInSec { get; set; }
         
         [Required]
-        // Default value is DateTime.Now()
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime LastUpdated { get; set; }
         
         public float Humidity { get; set; }

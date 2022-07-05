@@ -5,11 +5,9 @@ namespace WeatherTrackingApi.Models
 {
     public class FavoriteDestination
     {
-        [Key, Column(Order = 1)]
         [ForeignKey("Account")]
         public int UserId { get; set; }
         
-        [Key, Column(Order = 2)]
         [ForeignKey("City")]
         public int CityId { get; set; }
         

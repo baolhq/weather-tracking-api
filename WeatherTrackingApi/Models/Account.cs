@@ -15,7 +15,7 @@ namespace WeatherTrackingApi.Models
         public string Username { get; set; }
 
         [Required]
-        [Column(TypeName = "varchar(32)")]
+        [Column(TypeName = "varchar(64)")]
         public string Password { get; set; }
 
         [Required]
