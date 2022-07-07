@@ -8,6 +8,7 @@ using WeatherTrackingApi.Models;
 namespace WeatherTrackingApi.Controllers
 {
     [Authorize(Roles = "admin")]
+    [ApiController]
     [Route("api/[controller]")]
     public class CityController : ControllerBase
     {
