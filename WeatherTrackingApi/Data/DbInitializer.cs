@@ -25,7 +25,7 @@ namespace WeatherTrackingApi.Data
             {
                 new()
                 {
-                    Username = "admin", Password = ComputeSha256Hash("123123"), FullName = "Admin",
+                    Username = "admin", Password = Utils.ComputeSha256Hash("123123"), FullName = "Admin",
                     Email = "admin@gmail.com",
                     IsEmailValidated = true,
                     Address = "Ho Chi Minh", Avatar = null, DateOfBirth = DateTime.Parse("1996-03-26"),
@@ -34,7 +34,7 @@ namespace WeatherTrackingApi.Data
                 },
                 new()
                 {
-                    Username = "anv", Password = ComputeSha256Hash("123456"), FullName = "Nguyen Van A",
+                    Username = "anv", Password = Utils.ComputeSha256Hash("123456"), FullName = "Nguyen Van A",
                     Email = "anv@gmail.com",
                     IsEmailValidated = true,
                     Address = "Can Tho", Avatar = null, DateOfBirth = DateTime.Parse("2001-02-23"),
@@ -43,7 +43,7 @@ namespace WeatherTrackingApi.Data
                 },
                 new()
                 {
-                    Username = "btv", Password = ComputeSha256Hash("321321"), FullName = "Tran Van B",
+                    Username = "btv", Password = Utils.ComputeSha256Hash("321321"), FullName = "Tran Van B",
                     Email = "btv@gmail.com",
                     IsEmailValidated = false,
                     Address = "Soc Trang", Avatar = null, DateOfBirth = DateTime.Parse("2005-04-23"),
@@ -52,7 +52,7 @@ namespace WeatherTrackingApi.Data
                 },
                 new()
                 {
-                    Username = "clt", Password = ComputeSha256Hash("232323"), FullName = "Le Thi C",
+                    Username = "clt", Password = Utils.ComputeSha256Hash("232323"), FullName = "Le Thi C",
                     Email = "clt@gmail.com",
                     IsEmailValidated = true,
                     Address = "Dong Thap", Avatar = null, DateOfBirth = DateTime.Parse("2003-04-13"),
@@ -141,14 +141,6 @@ namespace WeatherTrackingApi.Data
             context.SaveChanges();
         }
 
-        private static string ComputeSha256Hash(string rawData)
-        {
-            using var sha256Hash = SHA256.Create();
-            var bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
-            var builder = new StringBuilder();
-
-            foreach (var b in bytes) builder.Append(b.ToString("x2"));
-            return builder.ToString();
-        }
+        
     }
 }

@@ -7,7 +7,7 @@ using WeatherTrackingApi.Models;
 
 namespace WeatherTrackingApi.Controllers
 {
-    [Authorize(Roles = "admin")]
+    // [Authorize(Roles = "admin")]
     [ApiController]
     [Route("api/[controller]")]
     public class CityController : ControllerBase
@@ -16,10 +16,12 @@ namespace WeatherTrackingApi.Controllers
 
         public CityController(WeatherTrackingDbContext context) => _context = context;
 
-        [AllowAnonymous]
+        // [AllowAnonymous]
+        [HttpGet]
         public List<City> GetAll() => _context.Cities.ToList();
 
-        [AllowAnonymous]
+        // [AllowAnonymous]
+        [HttpGet("{id:int}")]
         public ActionResult<City> GetById(int id)
         {
             var found = _context.Cities.FirstOrDefault(c => c.CityId == id);
@@ -27,6 +29,7 @@ namespace WeatherTrackingApi.Controllers
             return Ok(found);
         }
 
+        [HttpPost]
         public ActionResult<City> Add([FromBody] City city)
         {
             if (!ModelState.IsValid) return BadRequest("Model state is invalid");
@@ -36,18 +39,28 @@ namespace WeatherTrackingApi.Controllers
             return Ok(city);
         }
 
-        public ActionResult<City> Update([FromBody] City city)
+        [HttpPut("{id:int}")]
+        public ActionResult<City> Update(int id, [FromBody] City city)
         {
             if (!ModelState.IsValid) return BadRequest("Model state is invalid");
 
-            var found = _context.Cities.FirstOrDefault(c => c.CityId == city.CityId);
+            var found = _context.Cities.FirstOrDefault(c => c.CityId == id);
             if (found == null) return NotFound();
 
-            _context.Cities.Update(found);
+            found.CityName = city.CityName;
+            found.TimeZone = city.TimeZone;
+            found.Longitude = city.Longitude;
+            found.Latitude = city.Latitude;
+            found.BookingSchedule = city.BookingSchedule;
+            found.SuggestBoard = city.SuggestBoard;
+            found.WeatherStatus = city.WeatherStatus;
+            found.FavoriteDestination = city.FavoriteDestination;
+
             _context.SaveChanges();
             return Ok(found);
         }
 
+        [HttpDelete("{id:int}")]
         public ActionResult<City> Delete(int id)
         {
             if (!ModelState.IsValid) return BadRequest("Model state is invalid");
